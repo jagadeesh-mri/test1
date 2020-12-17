@@ -32,22 +32,22 @@
 				<version>${mule.maven.plugin.version}</version>
 				<extensions>true</extensions>
 				<configuration>
-					<configuration>
-						<cloudHubDeployment>
-							<uri>https://anypoint.mulesoft.com</uri>
-							<muleVersion>4.3.0</muleVersion>
-							<username>frlncr2</username>
-							<password>Frlncr2123</password>
-							<applicationName>test-oity</applicationName>
-							<environment>Sandbox</environment>
-							<region>us-east-2</region>
-							<workers>1</workers>
-							<workerType>MICRO</workerType>
-							<properties>
-								<key>value</key>
-							</properties>
-						</cloudHubDeployment>
-					</configuration>
+
+					<cloudHubDeployment>
+						<uri>https://anypoint.mulesoft.com</uri>
+						<muleVersion>4.3.0</muleVersion>
+						<username>frlncr2</username>
+						<password>Frlncr2123</password>
+						<applicationName>test-oity</applicationName>
+						<environment>Sandbox</environment>
+						<region>us-east-2</region>
+						<workers>1</workers>
+						<workerType>MICRO</workerType>
+						<properties>
+							<key>value</key>
+						</properties>
+					</cloudHubDeployment>
+
 					<sharedLibraries>
 						<sharedLibrary>
 							<groupId>mysql</groupId>
