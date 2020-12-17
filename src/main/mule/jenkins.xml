@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="961e764c-f454-4096-99aa-bc91ec6751b6" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<db:config name="Database_Config" doc:name="Database Config" doc:id="419b778d-7e2b-482a-81f4-21ffb4a94854" >
+		<db:my-sql-connection host="mysql1001.mochahost.com" port="3306" user="sivapv_mule20" password="mule20" database="sivapv_jtraining" />
+	</db:config>
+	<flow name="app-propertiesFlow" doc:id="0fecb75c-9061-4eb5-8639-13f28d7b9716" >
+		<http:listener doc:name="Listener" doc:id="2bac6554-40b4-43f9-8018-48afcbc32141" config-ref="HTTP_Listener_config" path="/accounts"/>
+		<db:select doc:name="Select" doc:id="d3e8af4a-0e10-4d45-9311-d6fd1129672c" config-ref="Database_Config">
+			<db:sql ><![CDATA[select * from customers]]></db:sql>
+		</db:select>
+		<ee:transform doc:name="Transform Message" doc:id="e0eda32b-5b83-41ad-8d5d-7e95a9260e96" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="838b264e-4350-4691-bc95-aa6ecc47a691" message="#[payload]"/>
+	</flow>
+</mule>
